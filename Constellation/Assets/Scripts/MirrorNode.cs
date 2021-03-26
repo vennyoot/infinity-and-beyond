@@ -32,6 +32,12 @@ public class MirrorNode : MonoBehaviour
     public void DisableEmitter()
     {
         gameObject.tag = "Untagged";
+        
+        if (GetComponentInChildren<LightEmitter>())
+        {
+            GetComponentInChildren<LightEmitter>().DisableNextEmitter();
+        }
+
         Destroy(_emitter);
         _emitterEnabled = false;
     }

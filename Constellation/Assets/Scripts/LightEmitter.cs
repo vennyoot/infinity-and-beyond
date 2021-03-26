@@ -38,11 +38,7 @@ public class LightEmitter : MonoBehaviour
 
         if (hit.Length <= 1)    //hitting itself only
         {
-            for (int i = 0; i < _currentNodes.Count; i++)
-            {
-                _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
-            }
-
+            DisableNextEmitter();
             ResetLight();
         }
         
@@ -72,6 +68,14 @@ public class LightEmitter : MonoBehaviour
 
             ResetLight();
         }*/
+    }
+
+    public void DisableNextEmitter()
+    {
+        for (int i = 0; i < _currentNodes.Count; i++)
+        {
+            _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
+        }
     }
 
     private void AddLink(Vector2 pos)
