@@ -18,7 +18,7 @@ public class LightEmitter : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D[] hit = Physics2D.LinecastAll(transform.position, transform.position + transform.up * _range, LayerMask.GetMask("MirrorNode", "LightNode"));
+        RaycastHit2D[] hit = Physics2D.LinecastAll(transform.position, transform.position + transform.up * _range, LayerMask.GetMask("MirrorNode", "KeyNode"));
         
         if (hit.Length > 1)
         {
@@ -57,7 +57,10 @@ public class LightEmitter : MonoBehaviour
     {
         for (int i = 0; i < _currentNodes.Count; i++)
         {
-            _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
+            if (_currentNodes[i].GetComponent<MirrorNode>())
+            {
+                _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
+            }
         }
     }
 
