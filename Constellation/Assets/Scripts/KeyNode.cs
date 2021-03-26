@@ -6,7 +6,7 @@ public class KeyNode : MonoBehaviour
 {
     [SerializeField]
     private MirrorNode[] _mustHit;
-    private bool _completed = false;
+    public bool _completed = false;
 
     public void CheckCompletion()
     {
@@ -19,6 +19,8 @@ public class KeyNode : MonoBehaviour
                 Incomplete();
             }
         }
+
+        FindObjectOfType<LevelManager>()._keyPing.Invoke();
     }
 
     private void Complete()
@@ -26,7 +28,7 @@ public class KeyNode : MonoBehaviour
         _completed = true;
     }
 
-    private void Incomplete()
+    public void Incomplete()
     {
         _completed = false;
     }

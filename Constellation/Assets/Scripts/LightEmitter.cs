@@ -61,6 +61,11 @@ public class LightEmitter : MonoBehaviour
             {
                 _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
             }
+
+            if (_currentNodes[i].GetComponent<KeyNode>())
+            {
+                _currentNodes[i].GetComponent<KeyNode>().Incomplete();
+            }
         }
     }
 
