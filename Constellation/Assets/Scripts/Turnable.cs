@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mirror : MonoBehaviour
+public class Turnable : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
