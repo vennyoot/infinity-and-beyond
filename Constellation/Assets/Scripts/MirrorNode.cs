@@ -35,7 +35,7 @@ public class MirrorNode : MonoBehaviour
         
         if (GetComponentInChildren<LightEmitter>())
         {
-            GetComponentInChildren<LightEmitter>().DisableNextEmitter();
+            GetComponentInChildren<LightEmitter>().DisableNextNode();
         }
 
         Destroy(_emitter);

@@ -22,55 +22,38 @@ public class LightEmitter : MonoBehaviour
         
         if (hit.Length > 1)
         {
-            ClearLinks();
-            HitNode(hit[1]);
-
-            if (hit[1].collider.gameObject.layer == 9)
+            if (hit[1].collider.gameObject.layer == 9 && !hit[1].collider.gameObject.GetComponent<MirrorNode>()._emitterEnabled)
             {
-                var temp = hit[1].collider.gameObject.GetComponent<MirrorNode>();
-
-                if (!temp._emitterEnabled)
-                {
-                    hit[1].collider.gameObject.GetComponent<MirrorNode>().EnableEmitter();
-                }
+                ClearLinks();
+                HitNode(hit[1]);
+                hit[1].collider.gameObject.GetComponent<MirrorNode>().EnableEmitter();
             }
-        }
 
-        if (hit.Length <= 1)    //hitting itself only
-        {
-            DisableNextEmitter();
-            ResetLight();
-        }
-        
-        /*if (hit && hit.collider.gameObject.tag != "Emitting")
-        {
-            ClearLinks();
-            HitNode(hit);
-
-            if (hit.collider.gameObject.layer == 8)
+            if (hit[1].collider.gameObject.layer == 10)
             {
-                //ReflectLight();
-
-                var temp = hit.collider.gameObject.GetComponent<MirrorNode>();
-
-                if (!temp._emitterEnabled)
-                {
-                    hit.collider.gameObject.GetComponent<MirrorNode>().EnableEmitter();
-                }
+                ClearLinks();
+                HitNode(hit[1]);
+                hit[1].collider.gameObject.GetComponent<KeyNode>().CheckCompletion();
             }
         }
         else
         {
-            for (int i = 0; i < _currentNodes.Count; i++)
-            {
-                _currentNodes[i].GetComponent<MirrorNode>().DisableEmitter();
-            }
-
+            DisableNextNode();
             ResetLight();
-        }*/
+        }
+
+        if (_currentNodes.Count > 0)
+        {
+            ClearLinks();
+            AddLink(_currentNodes[0].transform.position);
+        }
+        else
+        {
+            ResetLight();
+        }
     }
 
-    public void DisableNextEmitter()
+    public void DisableNextNode()
     {
         for (int i = 0; i < _currentNodes.Count; i++)
         {
