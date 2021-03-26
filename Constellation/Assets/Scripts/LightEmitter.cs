@@ -25,7 +25,7 @@ public class LightEmitter : MonoBehaviour
             ClearLinks();
             HitNode(hit[1]);
 
-            if (hit[1].collider.gameObject.layer == 8)
+            if (hit[1].collider.gameObject.layer == 9)
             {
                 var temp = hit[1].collider.gameObject.GetComponent<MirrorNode>();
 
@@ -36,7 +36,7 @@ public class LightEmitter : MonoBehaviour
             }
         }
 
-        if (hit.Length <= 1)
+        if (hit.Length <= 1)    //hitting itself only
         {
             for (int i = 0; i < _currentNodes.Count; i++)
             {
