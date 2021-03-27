@@ -22,14 +22,14 @@ public class LightEmitter : MonoBehaviour
         
         if (hit.Length > 1)
         {
-            if (hit[1].collider.gameObject.layer == 9 && !hit[1].collider.gameObject.GetComponent<MirrorNode>()._emitterEnabled)
+            if (hit[1].collider.gameObject.layer == 20 && !hit[1].collider.gameObject.GetComponent<MirrorNode>()._emitterEnabled)
             {
                 ClearLinks();
                 HitNode(hit[1]);
                 hit[1].collider.gameObject.GetComponent<MirrorNode>().EnableEmitter();
             }
 
-            if (hit[1].collider.gameObject.layer == 10)
+            if (hit[1].collider.gameObject.layer == 21)
             {
                 ClearLinks();
                 HitNode(hit[1]);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1703131040112623037}
   - component: {fileID: 5830485478649878388}
   - component: {fileID: 5492832437141708432}
-  m_Layer: 10
+  m_Layer: 21
   m_Name: KeyStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30caf3145a5e40749b13c208cbbf85fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mustHit: []
   _completed: 0
 --- !u!58 &5492832437141708432
 CircleCollider2D:
