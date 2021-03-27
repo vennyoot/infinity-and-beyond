@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Turnable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField]
+    float rotationSpeed;
+
+
+    public void BeingTurned(float turnDirection)
     {
-        
+
+        transform.Rotate(Vector3.right * Time.deltaTime * turnDirection * rotationSpeed, Space.Self);
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
