@@ -281,18 +281,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9e769567400c74ba4e5413e45d80fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jumpApexHeight: 5
+  m_jumpApexHeight: 2
   m_jumpApexTime: 1
   m_terminalVelocity: 10
   m_coyoteTime: 1
   m_jumpBufferTime: 1
   m_accelerationTimeFromRest: 2
   m_decelerationTimeToRest: 0.25
-  m_accelerationTimeFromQuickturn: 0.5
-  m_decelerationTimeFromQuickturn: 0.5
-  MaxHorizontalSpeed: 5
-  MinJumpHeight: 2
-  MaxHeldJump: 1
+  m_accelerationTimeFromQuickturn: 2
+  m_decelerationTimeFromQuickturn: 0.25
+  MaxHorizontalSpeed: 3
+  MinJumpHeight: 1
+  MaxHeldJump: 3
   direction: {x: 0, y: 0}
   currentSpeed: 0
   jumping: 0
