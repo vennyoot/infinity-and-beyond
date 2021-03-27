@@ -607,7 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _emitterPrefab: {fileID: 2140058031863044299, guid: 2d4b11a547f903649a5bbc5e466cf878,
     type: 3}
-  _emitterEnabled: 0
+  _emitterEnabled: 1
 --- !u!1 &5668842124346830642
 GameObject:
   m_ObjectHideFlags: 0

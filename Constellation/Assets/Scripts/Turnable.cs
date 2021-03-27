@@ -12,7 +12,7 @@ public class Turnable : MonoBehaviour
     public void BeingTurned(float turnDirection)
     {
 
-        transform.Rotate(Vector3.right * Time.deltaTime * turnDirection * rotationSpeed, Space.Self);
+        transform.Rotate(-Vector3.forward * Time.deltaTime * turnDirection * rotationSpeed, Space.Self);
 
     }
 
