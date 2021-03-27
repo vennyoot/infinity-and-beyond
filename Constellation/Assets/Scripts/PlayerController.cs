@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
     float jumpHolding;
     public enum FacingDirection { Left, Right }
 
+    public bool controlLock;
+
+
     private void Awake()
     {
         m_rigidBody = GetComponent<Rigidbody2D>();
@@ -85,20 +88,72 @@ public class PlayerController : MonoBehaviour
 
         PlayerVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
+        if (!controlLock)
+        {
+            Move();
 
+            //Vertical Movement//
+            if (IsGrounded())
+            {
+                jumping = false;
+            }
+
+            if (Input.GetButton("Jump"))
+            {
+                jumpHolding += Time.deltaTime;
+            }
+
+            if (Input.GetButtonUp("Jump"))
+            {
+
+                Jump(jumpHolding);
+
+                jumpHolding = 0;
+
+                if (!IsGrounded())
+                {
+                    StartCoroutine(BufferJump());
+                }
+            }
+
+
+
+
+
+            //  ceilingHit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector2.up, m_rigidBody.velocity.y * Time.deltaTime, LayerMask.GetMask("Ground"));
+
+            ceilingHit = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + (transform.localScale.y)), GetComponent<BoxCollider2D>().size, 0f, Vector2.up, m_rigidBody.velocity.y * Time.deltaTime, LayerMask.GetMask("Ground"));
+            //Check Ceiling//
+            if (ceilingHit.collider != null && !IsGrounded())
+            {
+                jumping = false;
+                m_rigidBody.velocity = new Vector2(m_rigidBody.velocity.x, 0f);
+                SetGroundPosition(-ceilingHit.distance);
+            }
+        }
+
+        if (controlLock)
+        {
+            Stop();
+        }
+   
+    }
+
+    void Move()
+    {
         //Horizontal Movement//
         if (Mathf.Abs(PlayerVector.x) > 0.5f)
         {
-            
-                acceleration = MaxHorizontalSpeed / m_accelerationTimeFromRest * Time.deltaTime;
-                currentSpeed = currentSpeed + acceleration;
-                currentSpeed = Mathf.Clamp(currentSpeed, 0, MaxHorizontalSpeed);
-                m_rigidBody.velocity = new Vector2(PlayerVector.x * currentSpeed, m_rigidBody.velocity.y);
-                direction = PlayerVector;
-    
+
+            acceleration = MaxHorizontalSpeed / m_accelerationTimeFromRest * Time.deltaTime;
+            currentSpeed = currentSpeed + acceleration;
+            currentSpeed = Mathf.Clamp(currentSpeed, 0, MaxHorizontalSpeed);
+            m_rigidBody.velocity = new Vector2(PlayerVector.x * currentSpeed, m_rigidBody.velocity.y);
+            direction = PlayerVector;
+
         }
 
-        else if (Mathf.Abs(PlayerVector.x) < 0.5f )
+        else if (Mathf.Abs(PlayerVector.x) < 0.5f)
         {
             acceleration = MaxHorizontalSpeed / m_decelerationTimeToRest * Time.deltaTime;
             currentSpeed = currentSpeed - acceleration;
@@ -106,47 +161,11 @@ public class PlayerController : MonoBehaviour
             m_rigidBody.velocity = new Vector2(direction.x * currentSpeed, m_rigidBody.velocity.y);
         }
 
+    }
 
-
-
-        //Vertical Movement//
-        if (IsGrounded()){
-            jumping = false;
-        }
-
-            if (Input.GetButton("Jump"))
-            {
-                jumpHolding += Time.deltaTime;
-            }
-             
-            if (Input.GetButtonUp("Jump"))
-            {
-           
-                Jump(jumpHolding);
-
-                jumpHolding = 0;
-                   
-                  if (!IsGrounded())
-                   {
-                     StartCoroutine(BufferJump());
-                   }
-            }
-        
-
-
-
-
-        //  ceilingHit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector2.up, m_rigidBody.velocity.y * Time.deltaTime, LayerMask.GetMask("Ground"));
-
-        ceilingHit = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + (transform.localScale.y)), GetComponent<BoxCollider2D>().size, 0f, Vector2.up, m_rigidBody.velocity.y * Time.deltaTime, LayerMask.GetMask("Ground"));
-        //Check Ceiling//
-        if (ceilingHit.collider != null && !IsGrounded())
-        {
-            jumping = false;
-            m_rigidBody.velocity = new Vector2(m_rigidBody.velocity.x, 0f);
-            SetGroundPosition(-ceilingHit.distance);    
-        }
-       
+    void Stop()
+    {
+        m_rigidBody.velocity = Vector2.zero;
     }
 
     public void WalkingControl()

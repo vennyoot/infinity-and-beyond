@@ -15,8 +15,13 @@ TagManager:
   - 
   - 
   - Ground
+<<<<<<< HEAD
   - MirrorNode
   - KeyNode
+=======
+  - MirrorNde
+  - Player
+>>>>>>> TurnTable
   - 
   - 
   - 
