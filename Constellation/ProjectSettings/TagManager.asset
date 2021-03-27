@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Emitting
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -15,14 +14,9 @@ TagManager:
   - 
   - 
   - Ground
-<<<<<<< HEAD
-  - MirrorNode
-  - KeyNode
-=======
   - MirrorNde
   - Player
->>>>>>> TurnTable
-  - 
+  - TurnTable
   - 
   - 
   - 
