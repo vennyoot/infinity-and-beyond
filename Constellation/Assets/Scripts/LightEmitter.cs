@@ -18,7 +18,7 @@ public class LightEmitter : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D[] hit = Physics2D.LinecastAll(transform.position, transform.position + transform.up * _range, LayerMask.GetMask("MirrorNode", "KeyNode"));
+        RaycastHit2D[] hit = Physics2D.LinecastAll(transform.position, transform.position + transform.up * _range, LayerMask.GetMask("MirrorNode", "KeyNode","Obstacle"));
         
         if (hit.Length > 1)
         {
@@ -34,6 +34,14 @@ public class LightEmitter : MonoBehaviour
                 ClearLinks();
                 HitNode(hit[1]);
                 hit[1].collider.gameObject.GetComponent<KeyNode>().CheckCompletion();
+            }
+
+            if (hit[1].collider.gameObject.layer == 22)
+            {
+                ClearLinks();
+                HitNode(hit[1]);
+                hit[1].collider.gameObject.GetComponent<KeyNode>().CheckCompletion();
+                ResetLight();
             }
         }
         else
