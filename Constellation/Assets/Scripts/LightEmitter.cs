@@ -8,7 +8,7 @@ public class LightEmitter : MonoBehaviour
     private List<Vector2> _lineLink = new List<Vector2>();
     private List<GameObject> _currentNodes = new List<GameObject>();
 
-    private float _range = 10f;
+    private float _range = 25;
 
     private void Start()
     {
@@ -33,6 +33,11 @@ public class LightEmitter : MonoBehaviour
             {
                 ClearLinks();
                 HitNode(hit[1]);
+               
+                if (hit[1].collider.gameObject.GetComponent<KeyNode>().NeedsToBeHitBy == true)
+                {
+                    hit[1].collider.gameObject.GetComponent<KeyNode>().LaserToBehit(this.gameObject.transform.parent.gameObject);
+                }
                 hit[1].collider.gameObject.GetComponent<KeyNode>().CheckCompletion();
             }
 
@@ -40,8 +45,13 @@ public class LightEmitter : MonoBehaviour
             {
                 ClearLinks();
                 HitNode(hit[1]);
+                
+                if (hit[1].collider.gameObject.GetComponent<KeyNode>().NeedsToBeHitBy == true)
+                {
+                    hit[1].collider.gameObject.GetComponent<KeyNode>().LaserToBehit(this.gameObject.transform.parent.gameObject);
+                }
                 hit[1].collider.gameObject.GetComponent<KeyNode>().CheckCompletion();
-                ResetLight();
+               
             }
         }
         else
@@ -84,7 +94,7 @@ public class LightEmitter : MonoBehaviour
         _lineRender.SetPosition(_lineLink.Count - 1, _lineLink[_lineLink.Count - 1]);
     }
 
-    private void ResetLight()
+    public  void ResetLight()
     {
         ClearLinks();
         ClearCurrentNodes();
@@ -96,7 +106,7 @@ public class LightEmitter : MonoBehaviour
         _currentNodes.Clear();
     }
 
-    private void ClearLinks()
+    public  void ClearLinks()
     {
         _lineLink.Clear();
         AddLink(transform.position);
